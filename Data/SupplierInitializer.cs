@@ -1,20 +1,21 @@
-using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using survey_imprecise_api.Models;
-
 
 namespace survey_imprecise_api.Data
 {
-    public class DbInitializer
+    public class SupplierInitializer
     {
-        public static void Initialize(DataBaseContext context)
+        private readonly DataBaseContext _context;
+        public SupplierInitializer(DataBaseContext context)
         {
-            context.Database.EnsureCreated();
+            _context = context;
+        }
 
-            // Look for any suppliers.
-            if (context.Suppliers.Any())
+        public void Seed()
+        {
+
+            if (_context.Suppliers.Any())
             {
                 return;   // DB has been seeded
             }
@@ -38,10 +39,10 @@ namespace survey_imprecise_api.Data
 
             foreach (Supplier s in suppliers)
             {
-                context.Suppliers.Add(s);
+                _context.Suppliers.Add(s);
             }
 
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }

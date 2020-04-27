@@ -32,16 +32,18 @@ namespace survey_imprecise_api
             services.AddControllers();
             // Set database
             services.AddDbContextPool<DataBaseContext>(options => options.UseMySql(Configuration["Database:ConnectionString"]));
+
+            services.AddTransient<SupplierInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SupplierInitializer supplierSeeder)
         {
 
 
             app.UseStatusCodePages(async context =>
             {
-                  context.HttpContext.Response.ContentType = "text/plain";
+                context.HttpContext.Response.ContentType = "text/plain";
 
                 await context.HttpContext.Response.WriteAsync(
                         "Status code page, status code: " +
@@ -63,6 +65,8 @@ namespace survey_imprecise_api
             {
                 endpoints.MapControllers();
             });
+
+            supplierSeeder.Seed();
         }
     }
 }
