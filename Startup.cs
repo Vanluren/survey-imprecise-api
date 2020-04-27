@@ -29,15 +29,17 @@ namespace survey_imprecise_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             // Set database
-            services.AddDbContextPool<DataBaseContext>(options => options.UseMySql(Configuration["Database:ConnectionString"]));
+            services.AddDbContextPool<DataBaseContext>(options => options.UseLazyLoadingProxies().UseMySql(Configuration["Database:ConnectionString"]));
 
-            services.AddTransient<SupplierInitializer>();
+            services.AddTransient<DbInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SupplierInitializer supplierSeeder)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbInitializer initializer)
         {
 
 
@@ -66,7 +68,8 @@ namespace survey_imprecise_api
                 endpoints.MapControllers();
             });
 
-            supplierSeeder.Seed();
+            initializer.Initialize();
+
         }
     }
 }

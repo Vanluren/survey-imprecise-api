@@ -32,6 +32,6 @@ namespace survey_imprecise_api.Models
         public int Economy { get; set; }
         public int Management { get; set; }
 
-        public List<Case> Cases { get; set; }
+        public virtual List<Case> Cases { get; set; }
     }
 }
