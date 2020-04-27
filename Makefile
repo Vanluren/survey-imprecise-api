@@ -19,7 +19,7 @@ test:
 	@echo "${GREEN}The Makefile works!${COLOR_END}"
 	@echo "${RED}the cake is a lie${COLOR_END}"
 
-deploy-production:
+deploy:
 	@echo "${YELLOW}Deploying to production environment...${COLOR_END}"
 	ssh -t ${DEPLOYMENT_USER_PRODUCTION}@${DEPLOYMENT_IP_PRODUCTION} 'cd ${DEPLOYMENT_PATH_PRODUCTION}; git reset --hard; git clean -fd; git pull;'
 	@echo "${GREEN}Deployed successfully.${COLOR_END}"
