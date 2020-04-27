@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace survey_imprecise_api
 {
@@ -20,7 +21,8 @@ namespace survey_imprecise_api
           Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseUrls("http://localhost:5200");
+                    webBuilder
+                    .UseStartup<Startup>().UseUrls("http://localhost:5200");
                 });
 
     }

@@ -41,7 +41,10 @@ namespace survey_imprecise_api
                 app.UseDeveloperExceptionPage();
             }
 
-            // app.UseHttpsRedirection();
+            if (evn.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
 
