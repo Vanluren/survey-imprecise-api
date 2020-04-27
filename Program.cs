@@ -22,7 +22,7 @@ namespace survey_imprecise_api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                    .UseStartup<Startup>().UseUrls("http://localhost:5200");
+                    .UseStartup<Startup>().UseUrls("http://localhost:5200", "https://localhost:5201");
                 });
 
     }
