@@ -3,29 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace survey_imprecise_api.Migrations
 {
-    public partial class IntialSetup : Migration
+    public partial class InitialSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Cases",
-                columns: table => new
-                {
-                    CaseId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cases", x => x.CaseId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
                     SupplierId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
                     Soil = table.Column<int>(nullable: false),
                     Husbandry = table.Column<int>(nullable: false),
                     Nutrients = table.Column<int>(nullable: false),
@@ -33,7 +22,7 @@ namespace survey_imprecise_api.Migrations
                     Energy = table.Column<int>(nullable: false),
                     Biodiversity = table.Column<int>(nullable: false),
                     Workconditions = table.Column<int>(nullable: false),
-                    Lifeequality = table.Column<int>(nullable: false),
+                    Lifequality = table.Column<int>(nullable: false),
                     Economy = table.Column<int>(nullable: false),
                     Management = table.Column<int>(nullable: false)
                 },
@@ -43,13 +32,31 @@ namespace survey_imprecise_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cases",
+                columns: table => new
+                {
+                    CaseId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SupplierId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cases", x => x.CaseId);
+                    table.ForeignKey(
+                        name: "FK_Cases_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Suppliers",
+                        principalColumn: "SupplierId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CaseParameters",
                 columns: table => new
                 {
                     CaseParameterId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    SupplierId1 = table.Column<int>(nullable: true),
-                    CaseId1 = table.Column<int>(nullable: true),
+                    CaseId = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     DescriptionOne = table.Column<string>(nullable: true),
                     DescriptionTwo = table.Column<string>(nullable: true)
@@ -58,28 +65,22 @@ namespace survey_imprecise_api.Migrations
                 {
                     table.PrimaryKey("PK_CaseParameters", x => x.CaseParameterId);
                     table.ForeignKey(
-                        name: "FK_CaseParameters_Cases_CaseId1",
-                        column: x => x.CaseId1,
+                        name: "FK_CaseParameters_Cases_CaseId",
+                        column: x => x.CaseId,
                         principalTable: "Cases",
                         principalColumn: "CaseId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CaseParameters_Suppliers_SupplierId1",
-                        column: x => x.SupplierId1,
-                        principalTable: "Suppliers",
-                        principalColumn: "SupplierId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CaseParameters_CaseId1",
+                name: "IX_CaseParameters_CaseId",
                 table: "CaseParameters",
-                column: "CaseId1");
+                column: "CaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CaseParameters_SupplierId1",
-                table: "CaseParameters",
-                column: "SupplierId1");
+                name: "IX_Cases_SupplierId",
+                table: "Cases",
+                column: "SupplierId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

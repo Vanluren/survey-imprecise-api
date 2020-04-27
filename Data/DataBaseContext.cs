@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -19,36 +20,8 @@ namespace survey_imprecise_api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Case>().HasData(
-                   new Case
-                   {
-                       CaseId = 1
-                   }
-                );
-            modelBuilder.Entity<Supplier>().HasData(
-                  new Supplier
-                  {
-                      SupplierId = 1,
-                      Name = "Lars Landmand",
-                      Soil = 1,
-                      Husbandry = 1,
-                      Nutrients = 1,
-                      Water = 1,
-                      Energy = 1,
-                      Biodiversity = 1,
-                      Workconditions = 1,
-                      Lifeequality = 1,
-                      Economy = 1,
-                      Management = 1
-                  }
-                );
-            modelBuilder.Entity<CaseParameter>().HasData(new CaseParameter
-            {
-                CaseParameterId = 1,
-                Title = "Title",
-                DescriptionOne = "dkajdflkajsdfkas",
-                DescriptionTwo = "æalkfjhædlksfjaæls"
-            });
+            modelBuilder.Entity<Case>().HasOne(c => c.Supplier).WithMany(s => s.Cases);
+            modelBuilder.Entity<CaseParameter>().HasOne(cp => cp.Case).WithMany(c => c.Parameters);
         }
     }
 }

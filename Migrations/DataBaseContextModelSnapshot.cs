@@ -23,7 +23,12 @@ namespace survey_imprecise_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
+
                     b.HasKey("CaseId");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Cases");
                 });
@@ -34,7 +39,7 @@ namespace survey_imprecise_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CaseId1")
+                    b.Property<int?>("CaseId")
                         .HasColumnType("int");
 
                     b.Property<string>("DescriptionOne")
@@ -43,17 +48,12 @@ namespace survey_imprecise_api.Migrations
                     b.Property<string>("DescriptionTwo")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("SupplierId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("CaseParameterId");
 
-                    b.HasIndex("CaseId1");
-
-                    b.HasIndex("SupplierId1");
+                    b.HasIndex("CaseId");
 
                     b.ToTable("CaseParameters");
                 });
@@ -73,17 +73,22 @@ namespace survey_imprecise_api.Migrations
                     b.Property<int>("Energy")
                         .HasColumnType("int");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<int>("Husbandry")
                         .HasColumnType("int");
 
-                    b.Property<int>("Lifeequality")
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Lifequality")
                         .HasColumnType("int");
 
                     b.Property<int>("Management")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("Nutrients")
                         .HasColumnType("int");
@@ -102,15 +107,18 @@ namespace survey_imprecise_api.Migrations
                     b.ToTable("Suppliers");
                 });
 
+            modelBuilder.Entity("survey_imprecise_api.Models.Case", b =>
+                {
+                    b.HasOne("survey_imprecise_api.Models.Supplier", "Supplier")
+                        .WithMany("Cases")
+                        .HasForeignKey("SupplierId");
+                });
+
             modelBuilder.Entity("survey_imprecise_api.Models.CaseParameter", b =>
                 {
-                    b.HasOne("survey_imprecise_api.Models.Case", "CaseId")
+                    b.HasOne("survey_imprecise_api.Models.Case", "Case")
                         .WithMany("Parameters")
-                        .HasForeignKey("CaseId1");
-
-                    b.HasOne("survey_imprecise_api.Models.Supplier", "SupplierId")
-                        .WithMany()
-                        .HasForeignKey("SupplierId1");
+                        .HasForeignKey("CaseId");
                 });
 #pragma warning restore 612, 618
         }
