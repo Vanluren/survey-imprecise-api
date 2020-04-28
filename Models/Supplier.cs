@@ -33,5 +33,6 @@ namespace survey_imprecise_api.Models
         public int Management { get; set; }
 
         public virtual List<Case> Cases { get; set; }
+        public virtual List<CaseParameter> Parameters { get; set; }
     }
 }

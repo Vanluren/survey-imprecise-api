@@ -92,10 +92,10 @@ namespace survey_imprecise_api.Data
 
         public void CaseParamSeeder()
         {
-            Case caseForObj = _context.Cases.Find(1);
+            Supplier supplier = _context.Suppliers.Find(1);
             CaseParameter[] parameters = new CaseParameter[]{
                 new CaseParameter{
-                    Case = caseForObj,
+                    Supplier = supplier,
                     Indicator = 9,
                     Score = 11,
                     DescriptionOne = "Lavt indtjeningsniveau hæmmer investeringsmuligheder",

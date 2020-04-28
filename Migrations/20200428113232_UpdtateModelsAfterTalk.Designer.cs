@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using survey_imprecise_api.Data;
 
 namespace survey_imprecise_api.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200428113232_UpdtateModelsAfterTalk")]
+    partial class UpdtateModelsAfterTalk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,14 +61,9 @@ namespace survey_imprecise_api.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SupplierId")
-                        .HasColumnType("int");
-
                     b.HasKey("CaseParameterId");
 
                     b.HasIndex("CaseId");
-
-                    b.HasIndex("SupplierId");
 
                     b.ToTable("CaseParameters");
                 });
@@ -172,13 +169,9 @@ namespace survey_imprecise_api.Migrations
 
             modelBuilder.Entity("survey_imprecise_api.Models.CaseParameter", b =>
                 {
-                    b.HasOne("survey_imprecise_api.Models.Case", null)
+                    b.HasOne("survey_imprecise_api.Models.Case", "Case")
                         .WithMany("Parameters")
                         .HasForeignKey("CaseId");
-
-                    b.HasOne("survey_imprecise_api.Models.Supplier", "Supplier")
-                        .WithMany("Parameters")
-                        .HasForeignKey("SupplierId");
                 });
 
             modelBuilder.Entity("survey_imprecise_api.Models.Response", b =>

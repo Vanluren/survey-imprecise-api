@@ -22,7 +22,7 @@ namespace survey_imprecise_api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Case>().HasOne(c => c.Supplier).WithMany(s => s.Cases);
-            modelBuilder.Entity<CaseParameter>().HasOne(cp => cp.Case).WithMany(c => c.Parameters);
+            modelBuilder.Entity<CaseParameter>().HasOne(cp => cp.Supplier).WithMany(s => s.Parameters);
             modelBuilder.Entity<Response>().HasOne(r => r.Respondant).WithMany(ra => ra.Responses);
         }
     }

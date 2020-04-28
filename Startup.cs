@@ -48,7 +48,7 @@ namespace survey_imprecise_api
                 context.HttpContext.Response.ContentType = "text/plain";
 
                 await context.HttpContext.Response.WriteAsync(
-                        "Status code page, status code: " +
+                        "Status code: " +
                         context.HttpContext.Response.StatusCode);
             });
 
