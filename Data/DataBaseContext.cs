@@ -19,11 +19,22 @@ namespace survey_imprecise_api.Data
         public virtual DbSet<CaseParameter> CaseParameters { get; set; }
         public virtual DbSet<Respondant> Respondants { get; set; }
         public virtual DbSet<Response> Responses { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Case>().HasOne(c => c.Supplier).WithMany(s => s.Cases);
             modelBuilder.Entity<CaseParameter>().HasOne(cp => cp.Supplier).WithMany(s => s.Parameters);
             modelBuilder.Entity<Response>().HasOne(r => r.Respondant).WithMany(ra => ra.Responses);
+            modelBuilder.Entity<QuestionCases>()
+                    .HasKey(qc => new { qc.QuestionId, qc.CaseId });
+            modelBuilder.Entity<QuestionCases>()
+                    .HasOne(qc => qc.Case)
+                    .WithMany(c => c.QuestionCases)
+                    .HasForeignKey(qc => qc.CaseId);
+            modelBuilder.Entity<QuestionCases>()
+                    .HasOne(qc => qc.Question)
+                    .WithMany(q => q.QuestionCases)
+                    .HasForeignKey(qc => qc.QuestionId);
         }
     }
 }

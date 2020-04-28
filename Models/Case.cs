@@ -11,5 +11,8 @@ namespace survey_imprecise_api.Models
 
         [JsonIgnore]
         public virtual Supplier Supplier { get; set; }
+
+        [JsonIgnore]
+        public virtual List<QuestionCases> QuestionCases { get; set; }
     }
 }

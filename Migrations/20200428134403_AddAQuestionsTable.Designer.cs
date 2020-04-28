@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using survey_imprecise_api.Data;
 
 namespace survey_imprecise_api.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200428134403_AddAQuestionsTable")]
+    partial class AddAQuestionsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,21 +85,6 @@ namespace survey_imprecise_api.Migrations
                     b.HasKey("QuestionId");
 
                     b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("survey_imprecise_api.Models.QuestionCases", b =>
-                {
-                    b.Property<int?>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CaseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("QuestionId", "CaseId");
-
-                    b.HasIndex("CaseId");
-
-                    b.ToTable("QuestionCases");
                 });
 
             modelBuilder.Entity("survey_imprecise_api.Models.Respondant", b =>
@@ -208,21 +195,6 @@ namespace survey_imprecise_api.Migrations
                     b.HasOne("survey_imprecise_api.Models.Supplier", "Supplier")
                         .WithMany("Parameters")
                         .HasForeignKey("SupplierId");
-                });
-
-            modelBuilder.Entity("survey_imprecise_api.Models.QuestionCases", b =>
-                {
-                    b.HasOne("survey_imprecise_api.Models.Case", "Case")
-                        .WithMany("QuestionCases")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("survey_imprecise_api.Models.Question", "Question")
-                        .WithMany("QuestionCases")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("survey_imprecise_api.Models.Response", b =>

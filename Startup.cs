@@ -32,7 +32,14 @@ namespace survey_imprecise_api
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-            // Set database
+            services.AddCors(options =>
+                    {
+                        options.AddDefaultPolicy(
+                                          builder =>
+                                          {
+                                              builder.AllowAnyOrigin();
+                                          });
+                    });            // Set database
             services.AddDbContextPool<DataBaseContext>(options => options.UseLazyLoadingProxies().UseMySql(Configuration["Database:ConnectionString"]));
 
             services.AddTransient<DbInitializer>();
@@ -56,6 +63,7 @@ namespace survey_imprecise_api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
