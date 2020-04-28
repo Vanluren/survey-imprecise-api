@@ -17,20 +17,20 @@ namespace survey_imprecise_api.Models
         {
             get
             {
-                return FirstName + " " + LastName;
+                return LastName + ", " + FirstName;
             }
         }
 
-        public int Soil { get; set; }
-        public int Husbandry { get; set; }
-        public int Nutrients { get; set; }
-        public int Water { get; set; }
-        public int Energy { get; set; }
-        public int Biodiversity { get; set; }
-        public int Workconditions { get; set; }
-        public int Lifequality { get; set; }
-        public int Economy { get; set; }
-        public int Management { get; set; }
+        public int? Soil { get; set; }
+        public int? Husbandry { get; set; }
+        public int? Nutrients { get; set; }
+        public int? Water { get; set; }
+        public int? Energy { get; set; }
+        public int? Biodiversity { get; set; }
+        public int? Workconditions { get; set; }
+        public int? Lifequality { get; set; }
+        public int? Economy { get; set; }
+        public int? Management { get; set; }
 
         public virtual List<Case> Cases { get; set; }
         public virtual List<CaseParameter> Parameters { get; set; }

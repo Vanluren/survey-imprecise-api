@@ -67,9 +67,6 @@ namespace survey_imprecise_api
             {
                 endpoints.MapControllers();
             });
-
-            initializer.Initialize();
-
         }
     }
 }
