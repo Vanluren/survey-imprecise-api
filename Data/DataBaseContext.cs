@@ -17,11 +17,13 @@ namespace survey_imprecise_api.Data
         public virtual DbSet<Case> Cases { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<CaseParameter> CaseParameters { get; set; }
-
+        public virtual DbSet<Respondant> Respondants { get; set; }
+        public virtual DbSet<Response> Responses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Case>().HasOne(c => c.Supplier).WithMany(s => s.Cases);
             modelBuilder.Entity<CaseParameter>().HasOne(cp => cp.Case).WithMany(c => c.Parameters);
+            modelBuilder.Entity<Response>().HasOne(r => r.Respondant).WithMany(ra => ra.Responses);
         }
     }
 }
