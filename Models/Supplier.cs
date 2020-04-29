@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+
 namespace survey_imprecise_api.Models
 {
     public partial class Supplier
@@ -33,6 +35,8 @@ namespace survey_imprecise_api.Models
         public int? Management { get; set; }
 
         public virtual List<Case> Cases { get; set; }
+        [JsonIgnore]
         public virtual List<CaseParameter> Parameters { get; set; }
+
     }
 }

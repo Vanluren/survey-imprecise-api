@@ -11,7 +11,7 @@ namespace survey_imprecise_api.Models
         public virtual List<Response> Responses { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreateAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
     }
 }

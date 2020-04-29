@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace survey_imprecise_api.Models
 {
     public class Question
     {
-        public int QuestionId { get; set; }
-        public string Content { get; set; }
-        public virtual List<QuestionCases> QuestionCases { get; set; }
+        public virtual int QuestionId { get; set; }
+        public virtual string Content { get; set; }
+
+        public virtual List<QuestionCases> Cases { get; set; }
     }
 }

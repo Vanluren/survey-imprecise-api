@@ -1,4 +1,5 @@
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+
 namespace survey_imprecise_api.Models
 {
     public class CaseParameter

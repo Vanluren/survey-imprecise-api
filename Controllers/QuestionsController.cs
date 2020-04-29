@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using survey_imprecise_api.Data;
 using survey_imprecise_api.Models;
 
@@ -21,15 +22,11 @@ namespace survey_imprecise_api.Controllers
 
         // GET: api/questions
         [HttpGet]
-        public ActionResult<QuestionViewModel> GetQuestions()
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
         {
-
-            List<Question> questions = _context.Questions.ToList();
-            List<Supplier> suppliers = _context.Suppliers.ToList();
-            QuestionViewModel viewModel = new QuestionViewModel { Questions = questions, Suppliers = suppliers };
-
-            return viewModel;
+            return await _context.Questions.ToListAsync();
         }
+
         // GET: api/questions
         [HttpGet("{id}")]
         public async Task<ActionResult<Question>> GetQuestion(int id)

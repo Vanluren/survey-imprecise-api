@@ -20,6 +20,7 @@ namespace survey_imprecise_api.Data
         public virtual DbSet<Respondant> Respondants { get; set; }
         public virtual DbSet<Response> Responses { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<QuestionCases> QuestionCases { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Case>().HasOne(c => c.Supplier).WithMany(s => s.Cases);
@@ -29,11 +30,11 @@ namespace survey_imprecise_api.Data
                     .HasKey(qc => new { qc.QuestionId, qc.CaseId });
             modelBuilder.Entity<QuestionCases>()
                     .HasOne(qc => qc.Case)
-                    .WithMany(c => c.QuestionCases)
+                    .WithMany(c => c.Questions)
                     .HasForeignKey(qc => qc.CaseId);
             modelBuilder.Entity<QuestionCases>()
                     .HasOne(qc => qc.Question)
-                    .WithMany(q => q.QuestionCases)
+                    .WithMany(q => q.Cases)
                     .HasForeignKey(qc => qc.QuestionId);
         }
     }
