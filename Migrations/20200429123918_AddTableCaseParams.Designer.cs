@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using survey_imprecise_api.Data;
 
 namespace survey_imprecise_api.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200429123918_AddTableCaseParams")]
+    partial class AddTableCaseParams
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,16 +55,20 @@ namespace survey_imprecise_api.Migrations
                     b.Property<string>("DescriptionTwo")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Indicator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(24)");
+                    b.Property<int>("Indicator")
+                        .HasColumnType("int");
 
                     b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SupplierId")
                         .HasColumnType("int");
 
                     b.HasKey("CaseParameterId");
 
                     b.HasIndex("CaseId");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("CaseParameters");
                 });
@@ -200,6 +206,10 @@ namespace survey_imprecise_api.Migrations
                     b.HasOne("survey_imprecise_api.Models.Case", null)
                         .WithMany("Parameters")
                         .HasForeignKey("CaseId");
+
+                    b.HasOne("survey_imprecise_api.Models.Supplier", "Supplier")
+                        .WithMany("Parameters")
+                        .HasForeignKey("SupplierId");
                 });
 
             modelBuilder.Entity("survey_imprecise_api.Models.QuestionCases", b =>

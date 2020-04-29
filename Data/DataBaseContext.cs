@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using survey_imprecise_api.Models;
 
@@ -24,7 +25,6 @@ namespace survey_imprecise_api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Case>().HasOne(c => c.Supplier).WithMany(s => s.Cases);
-            modelBuilder.Entity<CaseParameter>().HasOne(cp => cp.Supplier).WithMany(s => s.Parameters);
             modelBuilder.Entity<Response>().HasOne(r => r.Respondant).WithMany(ra => ra.Responses);
             modelBuilder.Entity<QuestionCases>()
                     .HasKey(qc => new { qc.QuestionId, qc.CaseId });
