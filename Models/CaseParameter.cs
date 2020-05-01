@@ -7,12 +7,9 @@ namespace survey_imprecise_api.Models
 {
     public class CaseParameter
     {
-        public int CaseParameterId { get; set; }
-        [Column(TypeName = "nvarchar(24)")]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public IndicatorType Indicator { get; set; }
-        public int Score { get; set; }
-        public string DescriptionOne { get; set; }
-        public string DescriptionTwo { get; set; }
+        public virtual int CaseId { get; set; }
+        public virtual Case Case { get; set; }
+        public virtual int ParameterId { get; set; }
+        public virtual Parameter Parameter { get; set; }
     }
 }

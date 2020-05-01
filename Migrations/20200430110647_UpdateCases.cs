@@ -2,7 +2,7 @@
 
 namespace survey_imprecise_api.Migrations
 {
-    public partial class RemoveSupplierFromCaseParams : Migration
+    public partial class UpdateCases : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -9,8 +9,8 @@ using survey_imprecise_api.Data;
 namespace survey_imprecise_api.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20200428114020_UpdateRelations")]
-    partial class UpdateRelations
+    [Migration("20200429220130_InitialSetup")]
+    partial class InitialSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,11 +42,23 @@ namespace survey_imprecise_api.Migrations
 
             modelBuilder.Entity("survey_imprecise_api.Models.CaseParameter", b =>
                 {
-                    b.Property<int>("CaseParameterId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("CaseId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CaseId")
+                    b.Property<int>("ParameterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CaseId", "ParameterId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.ToTable("CaseParameters");
+                });
+
+            modelBuilder.Entity("survey_imprecise_api.Models.Parameter", b =>
+                {
+                    b.Property<int>("ParameterId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("DescriptionOne")
@@ -55,22 +67,45 @@ namespace survey_imprecise_api.Migrations
                     b.Property<string>("DescriptionTwo")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Indicator")
-                        .HasColumnType("int");
+                    b.Property<string>("Indicator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SupplierId")
+                    b.HasKey("ParameterId");
+
+                    b.ToTable("Parameters");
+                });
+
+            modelBuilder.Entity("survey_imprecise_api.Models.Question", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.HasKey("CaseParameterId");
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("QuestionId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("survey_imprecise_api.Models.QuestionCases", b =>
+                {
+                    b.Property<int?>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CaseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuestionId", "CaseId");
 
                     b.HasIndex("CaseId");
 
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("CaseParameters");
+                    b.ToTable("QuestionCases");
                 });
 
             modelBuilder.Entity("survey_imprecise_api.Models.Respondant", b =>
@@ -79,7 +114,7 @@ namespace survey_imprecise_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateAt")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)");
 
@@ -97,7 +132,7 @@ namespace survey_imprecise_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ChosenCaseCaseId")
+                    b.Property<int?>("ChosenCaseId")
                         .HasColumnType("int");
 
                     b.Property<int?>("RespondantId")
@@ -105,7 +140,7 @@ namespace survey_imprecise_api.Migrations
 
                     b.HasKey("ResponseId");
 
-                    b.HasIndex("ChosenCaseCaseId");
+                    b.HasIndex("ChosenCaseId");
 
                     b.HasIndex("RespondantId");
 
@@ -118,42 +153,42 @@ namespace survey_imprecise_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Biodiversity")
+                    b.Property<int?>("Biodiversity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Economy")
+                    b.Property<int?>("Economy")
                         .HasColumnType("int");
 
-                    b.Property<int>("Energy")
+                    b.Property<int?>("Energy")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Husbandry")
+                    b.Property<int?>("Husbandry")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Lifequality")
+                    b.Property<int?>("Lifequality")
                         .HasColumnType("int");
 
-                    b.Property<int>("Management")
+                    b.Property<int?>("Management")
                         .HasColumnType("int");
 
-                    b.Property<int>("Nutrients")
+                    b.Property<int?>("Nutrients")
                         .HasColumnType("int");
 
-                    b.Property<int>("Soil")
+                    b.Property<int?>("Soil")
                         .HasColumnType("int");
 
-                    b.Property<int>("Water")
+                    b.Property<int?>("Water")
                         .HasColumnType("int");
 
-                    b.Property<int>("Workconditions")
+                    b.Property<int?>("Workconditions")
                         .HasColumnType("int");
 
                     b.HasKey("SupplierId");
@@ -167,27 +202,46 @@ namespace survey_imprecise_api.Migrations
                         .WithMany("Choices")
                         .HasForeignKey("ResponseId");
 
-                    b.HasOne("survey_imprecise_api.Models.Supplier", "Supplier")
+                    b.HasOne("survey_imprecise_api.Models.Supplier", null)
                         .WithMany("Cases")
                         .HasForeignKey("SupplierId");
                 });
 
             modelBuilder.Entity("survey_imprecise_api.Models.CaseParameter", b =>
                 {
-                    b.HasOne("survey_imprecise_api.Models.Case", null)
+                    b.HasOne("survey_imprecise_api.Models.Case", "Case")
                         .WithMany("Parameters")
-                        .HasForeignKey("CaseId");
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("survey_imprecise_api.Models.Supplier", "Supplier")
-                        .WithMany("Parameters")
-                        .HasForeignKey("SupplierId");
+                    b.HasOne("survey_imprecise_api.Models.Parameter", "Parameter")
+                        .WithMany("Cases")
+                        .HasForeignKey("ParameterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("survey_imprecise_api.Models.QuestionCases", b =>
+                {
+                    b.HasOne("survey_imprecise_api.Models.Case", "Case")
+                        .WithMany("Questions")
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("survey_imprecise_api.Models.Question", "Question")
+                        .WithMany("Cases")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("survey_imprecise_api.Models.Response", b =>
                 {
                     b.HasOne("survey_imprecise_api.Models.Case", "ChosenCase")
                         .WithMany()
-                        .HasForeignKey("ChosenCaseCaseId");
+                        .HasForeignKey("ChosenCaseId");
 
                     b.HasOne("survey_imprecise_api.Models.Respondant", "Respondant")
                         .WithMany("Responses")

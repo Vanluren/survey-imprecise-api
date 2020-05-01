@@ -29,7 +29,7 @@ namespace survey_imprecise_api
                         options.AddDefaultPolicy(
                                           builder =>
                                           {
-                                              builder.AllowAnyOrigin();
+                                              builder.AllowAnyMethod().WithHeaders("Content-Type").AllowAnyOrigin();
                                           });
                     });            // Set database
             services.AddDbContextPool<DataBaseContext>(options => options.UseLazyLoadingProxies().UseMySql(Configuration["Database:ConnectionString"]));

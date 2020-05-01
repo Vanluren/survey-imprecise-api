@@ -6,12 +6,18 @@ namespace survey_imprecise_api.Models
 {
     public class Respondant
     {
+        public Respondant()
+        {
+            Rankings = new HashSet<Ranking>();
+            Responses = new HashSet<Response>();
+        }
+
         public int RespondantId { get; set; }
         public string Occupation { get; set; }
-        public virtual List<Response> Responses { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreatedAt { get; set; }
 
+        public virtual ICollection<Ranking> Rankings { get; set; }
+        public virtual ICollection<Response> Responses { get; set; }
     }
+
 }

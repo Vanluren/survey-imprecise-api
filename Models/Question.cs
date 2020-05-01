@@ -5,9 +5,14 @@ namespace survey_imprecise_api.Models
 {
     public class Question
     {
-        public virtual int QuestionId { get; set; }
-        public virtual string Content { get; set; }
+        public Question()
+        {
+            QuestionCases = new HashSet<QuestionCases>();
+        }
 
-        public virtual List<QuestionCases> Cases { get; set; }
+        public int QuestionId { get; set; }
+        public string Content { get; set; }
+
+        public virtual ICollection<QuestionCases> QuestionCases { get; set; }
     }
 }
