@@ -8,34 +8,6 @@ namespace survey_imprecise_api.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Responses_Cases_ChosenCaseId",
-                table: "Responses");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Responses",
-                table: "Responses");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Respondants",
-                table: "Respondants");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Questions",
-                table: "Questions");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Parameters",
-                table: "Parameters");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Cases",
-                table: "Cases");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_CaseParameters",
-                table: "CaseParameters");
-
             migrationBuilder.AlterColumn<int>(
                 name: "RespondantId",
                 table: "Responses",

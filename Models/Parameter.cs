@@ -13,6 +13,7 @@ namespace survey_imprecise_api.Models
             CaseParameters = new HashSet<CaseParameter>();
         }
 
+        [JsonIgnore]
         public int ParameterId { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
@@ -22,6 +23,7 @@ namespace survey_imprecise_api.Models
         public string DescriptionOne { get; set; }
         public string DescriptionTwo { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<CaseParameter> CaseParameters { get; set; }
     }
 }

@@ -16,7 +16,9 @@ namespace survey_imprecise_api.Models
         public int CaseId { get; set; }
 
         public virtual ICollection<CaseParameter> CaseParameters { get; set; }
+        [JsonIgnore]
         public virtual ICollection<QuestionCases> QuestionCases { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Response> Responses { get; set; }
     }
 }
