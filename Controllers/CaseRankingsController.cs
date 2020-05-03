@@ -44,7 +44,7 @@ namespace survey_imprecise_api.Controllers
             _context.Rankings.Add(newRanking);
             _context.SaveChanges();
 
-            for (int i = 1; i < parameters.Rankings.Count; i++)
+            for (int i = 0; i < parameters.Rankings.Count; i++)
             {
 
 
