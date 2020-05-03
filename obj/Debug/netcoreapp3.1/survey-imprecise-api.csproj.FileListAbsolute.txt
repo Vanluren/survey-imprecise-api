@@ -130,3 +130,4 @@
 /Users/villadsvalur/Developer/SkoleArbejde/survey-imprecise-api/bin/Debug/netcoreapp3.1/Newtonsoft.Json.Bson.dll
 /Users/villadsvalur/Developer/SkoleArbejde/survey-imprecise-api/bin/Debug/netcoreapp3.1/Castle.Core.dll
 /Users/villadsvalur/Developer/SkoleArbejde/survey-imprecise-api/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Proxies.dll
+/Users/villadsvalur/Developer/SkoleArbejde/survey-imprecise-api/bin/Debug/netcoreapp3.1/package.json

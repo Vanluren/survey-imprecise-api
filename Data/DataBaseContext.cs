@@ -60,7 +60,8 @@ namespace survey_imprecise_api.Data
 
             modelBuilder.Entity<CaseRanking>(entity =>
             {
-                entity.HasNoKey();
+                entity
+                    .HasKey(qc => new { qc.CaseId, qc.RankingId }); ;
 
                 entity.HasIndex(e => e.CaseId)
                     .HasName("CaseId");

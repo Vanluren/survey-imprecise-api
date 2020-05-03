@@ -69,11 +69,13 @@ namespace survey_imprecise_api.Migrations
                     b.Property<int>("CaseId")
                         .HasColumnType("int(11)");
 
+                    b.Property<int>("RankingId")
+                        .HasColumnType("int(11)");
+
                     b.Property<int?>("Priority")
                         .HasColumnType("int(11)");
 
-                    b.Property<int>("RankingId")
-                        .HasColumnType("int(11)");
+                    b.HasKey("CaseId", "RankingId");
 
                     b.HasIndex("CaseId")
                         .HasName("CaseId");

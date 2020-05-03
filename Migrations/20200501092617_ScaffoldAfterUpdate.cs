@@ -47,15 +47,6 @@ namespace survey_imprecise_api.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("MySql:Collation", "utf8mb4_general_ci");
 
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "CreatedAt",
-                table: "Respondants",
-                nullable: false,
-                defaultValueSql: "'CURRENT_TIMESTAMP(6)'",
-                oldClrType: typeof(DateTime),
-                oldType: "datetime(6)")
-                .OldAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
-
             migrationBuilder.AlterColumn<int>(
                 name: "RespondantId",
                 table: "Respondants",
