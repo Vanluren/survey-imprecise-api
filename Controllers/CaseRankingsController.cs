@@ -52,7 +52,7 @@ namespace survey_imprecise_api.Controllers
                 {
                     RankingId = newRanking.RankingId,
                     CaseId = Int16.Parse(parameters.Rankings[i]),
-                    Priority = i
+                    Priority = i + 1
                 });
 
                 _context.SaveChanges();
